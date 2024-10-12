@@ -13,19 +13,25 @@ exports.getMovies = async(req,res)=>{
 
         let finalMovies = allMovies; 
 
-        // Search by TITLE using RegExp
+        // Search by TITLE 
         if (title) {
         const titlePattern = new RegExp(title, 'i'); 
         finalMovies = finalMovies.filter((movie) => titlePattern.test(movie.title));
         }
 
-        // Filter by GENRE using RegExp
+        // Filter by GENRE 
         if (genre) {
         const genrePattern = new RegExp(genre, 'i'); 
         finalMovies = finalMovies.filter((movie) =>
         movie.genres.some((g) => genrePattern.test(g)) 
         );
         }
+
+        // Filter by YEAR 
+        if (year) {
+        finalMovies = finalMovies.filter((movie) => movie.year == year);
+        }
+  
     }
     catch(e){
             console.error(e);
