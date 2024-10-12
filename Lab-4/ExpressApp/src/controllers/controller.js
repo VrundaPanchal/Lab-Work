@@ -31,7 +31,9 @@ exports.getMovies = async(req,res)=>{
         if (year) {
         finalMovies = finalMovies.filter((movie) => movie.year == year);
         }
-  
+        
+        // Return the filtered movie list and count
+        res.json(finalMovies)
     }
     catch(e){
             console.error(e);
