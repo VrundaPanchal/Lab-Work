@@ -4,8 +4,20 @@ const fs =require('fs');
 //Function to get all the files
 exports.getMovies = async(req,res)=>{
     try{
-        const movies = await Movie.find();
-         res.status(200).json(movies);
+        // const movies = await Movie.find();
+        //  res.status(200).json(movies);
+
+        const allMovies = await Movie.find(); // Renamed variable to allMovies
+
+        const { title, genre, year } = req.query; // Query parameters
+
+        let finalMovies = allMovies; // Renamed filteredMovies to finalMovies
+
+        // Search by TITLE using RegExp
+        if (title) {
+        const titlePattern = new RegExp(title, 'i'); // 'i' flag for case-insensitive search
+        finalMovies = finalMovies.filter((movie) => titlePattern.test(movie.title));
+        }
     }
     catch(e){
             console.error(e);
